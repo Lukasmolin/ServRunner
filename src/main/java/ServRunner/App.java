@@ -3,12 +3,39 @@
  */
 package ServRunner;
 
+import ServRunner.model.Model;
+import ServRunner.view.View;
+import ServRunner.view.ViewListener;
+
 public class App {
+
+    static View v;
+    static Model m;
+
     public String getGreeting() {
         return "Hello world.";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        m = new Model();
+        v = new View();
+
+        v.addListener(new ViewListener(){
+        
+            @Override
+            public void updateClicked() {
+                m.update();            
+            }
+        
+            @Override
+            public void chosenFile(String chosenPath) {
+                m = new Model(chosenPath);            
+            }
+        
+            @Override
+            public void bootRunClicked() {
+                m.run();              
+            }
+        });
     }
 }
