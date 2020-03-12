@@ -32,3 +32,13 @@ application {
     // Define the main class for the application
     mainClassName = 'ServRunner.App'
 }
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ServRunner.App'    
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
